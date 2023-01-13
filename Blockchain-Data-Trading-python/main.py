@@ -1,0 +1,16 @@
+from seller import *
+from buyer import *
+from transaction import *
+from blockchain import *
+
+data_seller = Seller()
+buyer = Buyer(data_seller.key)
+
+data_chain = data_seller.prepare_transaction_data(b"SSBtYW5hZ2UgYmVjYXVzZSBJIGhhdmUgdG8uIEJlY2F1c2UgSSd2ZSBubyBvdGhlciB3YXkgb3V0LiBCZWNhdXNlIEkndmUgb3ZlcmNvbWUgdGhlIHZhbml0eSBhbmQgcHJpZGUgb2YgYmVpbmcgZGlmZmVyZW50LiBJJ3ZlIHVuZGVyc3Rvb2QgdGhhdCB0aGV5IGFyZSBhIHBpdGlmdWwgZGVmZW5zZSBhZ2FpbnN0IGJlaW5nIGRpZmZlcmVudC4gQmVjYXVzZSBJJ3ZlIHVuZGVyc3Rvb2QgdGhhdCB0aGUgc3VuIHNoaW5lcyBkaWZmZXJlbnRseSB3aGVuIHNvbWV0aGluZyBjaGFuZ2VzLCBidXQgSSdtIG5vdCB0aGUgYXhpcyBvZiB0aG9zZSBjaGFuZ2VzLiBUaGUgc3VuIHNoaW5lcyBkaWZmZXJlbnRseSwgYnV0IGl0IHdpbGwgY29udGludWUgdG8gc2hpbmUsIGFuZCBqdW1waW5nIGF0IGl0IHdpdGggYSBob2UgaXNuJ3QgZ29pbmcgdG8gZG8gYW55dGhpbmcuIFdlJ3ZlIGdvdCB0byBhY2NlcHQgZmFjdHMsIGVsZi4gVGhhdCdzIHdoYXQgd2UndmUgZ290IHRvIGxlYXJu", MinimalChain())
+
+monitor = Data_transaction_monitor(100, data_chain, buyer, data_seller)
+
+for i in range(data_chain.get_chain_size()):
+    monitor.sale(100, i, 300)
+
+buyer.publish_purchase()
